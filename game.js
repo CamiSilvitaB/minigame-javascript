@@ -1,3 +1,4 @@
+/* main elements */
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
 const up = document.querySelector('#up')
@@ -8,6 +9,12 @@ const spanLives = document.querySelector('#lives')
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
 const pResult = document.querySelector('#result');
+
+/* Buttons Events */
+up.addEventListener('click', upMove);
+left.addEventListener('click', leftMove);
+right.addEventListener('click', rightMove);
+down.addEventListener('click', downMove);
 
 let canvasSize;
 let elementsSize;
@@ -46,10 +53,15 @@ function setCanvasSize() {
       canvasSize = window.innerHeight * 0.8;
     }
     
+    canvasSize = Number(canvasSize.toFixed(0));
+
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
     
     elementsSize = (canvasSize / 10 -3); 
+
+    playerPosition.x = undefined
+    playerPosition.y = undefined
   
     startGame();
 
@@ -189,11 +201,6 @@ function showRecord() {
 }
 
 window.addEventListener('keydown', moveByKeys);
-up.addEventListener('click', upMove);
-left.addEventListener('click', leftMove);
-right.addEventListener('click', rightMove);
-down.addEventListener('click', downMove);
-
 
 function moveByKeys (event){
   if (event.key == 'ArrowUp') upMove();
@@ -201,7 +208,6 @@ function moveByKeys (event){
   else if (event.key == 'ArrowLeft') leftMove();
   else if (event.key == 'ArrowRight') rightMove();
 };
-
 
 function upMove(){
   if((playerPosition.y - elementsSize) < 0){
